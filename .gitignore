@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+frontend/node_modules/
+frontend/test-results/
+frontend/playwright-report/
+.env
+.env.*
+!.env.example
+*.log
+!tests/fixtures/*.log
+.DS_Store
+
+# Local workspace instructions and session handoff
+/AGENTS.md
+/PROJECT_CONTEXT.md

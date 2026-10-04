@@ -1,0 +1,19 @@
+# SYNTHETIC OAI v2.2.2 message shapes; invented identifiers/addresses. See README.md.
+oai-amf | [2026-10-04 12:00:00.000] [amf_n2] [info] Received Initial UE Message, handling
+oai-amf | [2026-10-04 12:00:00.010] [amf_n1] [debug] Received Registration Request message, handling...
+oai-amf | [2026-10-04 12:00:00.011] [amf_app] [debug] Key for UE context search: 1
+oai-amf | [2026-10-04 12:00:00.012] [amf_n1] [debug] Received IMSI 001010123456780
+oai-amf | [2026-10-04 12:00:00.013] [amf_n1] [debug] SUPI imsi-001010123456780
+oai-amf | [2026-10-04 12:00:00.200] [amf_n1] [debug] Received Registration Complete message, handling...
+oai-amf | [2026-10-04 12:00:00.201] [amf_n1] [debug] Received Registration Complete message, processing
+oai-amf | [2026-10-04 12:00:00.210] [amf_n1] [info] 5GMM state transition: COMM-PROC-INIT -> 5GMM-REGISTERED (event: [REGISTRATION_COMPLETE_RECEIVED])
+oai-smf | [2026-10-04 12:00:01.000] [smf_app] [info] SMF context:
+oai-smf |
+oai-smf | SMF CONTEXT:
+oai-smf | SUPI: imsi-001010123456780
+oai-smf | PDU SESSION:
+oai-smf |     PDU Session ID: 1
+oai-smf |     DNN: internet
+oai-smf |     PAA IPv4: 192.0.2.10
+oai-smf |     Default QFI: 9
+oai-smf |     SEID: 1

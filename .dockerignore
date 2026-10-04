@@ -1,0 +1,21 @@
+# Only send the files needed to build the app. No local logs or credentials.
+**
+!Dockerfile
+!requirements-runtime.txt
+!app.py
+!engine.py
+!failure_rules.py
+!pdu.py
+!adapters/
+!adapters/*.py
+!frontend/
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/index.html
+!frontend/vite.config.js
+!frontend/src/
+!frontend/src/**
+!tests/
+!tests/fixtures/
+!tests/fixtures/success.log
+!tests/fixtures/oai-success.log

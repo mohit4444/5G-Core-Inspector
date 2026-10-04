@@ -1,0 +1,8 @@
+# SYNTHETIC TEST DATA: supplied message sequence; intermediate timestamps assigned for tests.
+open5gs_5gc  | 09/06 15:44:57.741 [amf] INFO: InitialUEMessage
+open5gs_5gc  | 09/06 15:44:57.742 [amf] INFO: [Added] Number of gNB-UEs is now 1
+open5gs_5gc  | 09/06 15:44:57.743 [amf] INFO: RAN_UE_NGAP_ID[0] AMF_UE_NGAP_ID[1] TAC[7] CellID[0x66c000]
+open5gs_5gc  | 09/06 15:44:57.744 [amf] INFO: [suci-0-001-01-0000-0-0-0123456780] Unknown UE by SUCI
+open5gs_5gc  | 09/06 15:44:57.745 [gmm] INFO: Registration request
+open5gs_5gc  | 09/06 15:44:57.746 [gmm] INFO: [suci-0-001-01-0000-0-0-0123456780] SUCI
+open5gs_5gc  | 09/06 15:44:58.279 [gmm] INFO: [imsi-001010123456780] Registration complete

@@ -1,0 +1,18 @@
+services:
+  inspector:
+    build: .
+    image: 5g-core-inspector:local
+    init: true
+    stdin_open: true
+    ports:
+      - "127.0.0.1:${INSPECTOR_PORT:-8000}:8000"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "2"
