@@ -1,7 +1,7 @@
 """Synthetic multi-UE and PDU test data, not a captured multi-UE trace."""
 from fastapi.testclient import TestClient
-from app import create_app
-from engine import Inspector
+from backend.app import create_app
+from backend.core.engine import Inspector
 
 A = 'imsi-001010123456780'
 B = 'imsi-001010123456781'

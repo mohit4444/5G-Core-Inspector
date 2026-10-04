@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useInspector } from "./useInspector";
+import { useInspector } from "./hooks/useInspector";
 import { Status, Fields, Empty } from "./components/Common";
 import Timeline from "./components/Timeline";
 import PduSessions from "./components/PduSessions";

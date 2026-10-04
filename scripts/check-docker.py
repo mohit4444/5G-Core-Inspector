@@ -78,7 +78,7 @@ def check_case(label, args, core, duration, stdin=False, volume=None, default=Fa
             base = wait_for(address, "published port")
             wait_for(lambda: request(base, "/api/health"), "HTTP readiness")
             if stdin:
-                process.stdin.write((ROOT / "tests/fixtures/success.log").read_text())
+                process.stdin.write((ROOT / "examples/success.log").read_text())
                 process.stdin.flush()
             registration = wait_for(
                 lambda: (value if (value := request(base, "/api/registration"))
@@ -137,6 +137,6 @@ if __name__ == "__main__":
         check_case("oai", ["--replay", "/app/examples/oai-success.log"], "oai", 200)
         check_case("stdin", ["--stdin", "--year", "2026"], "open5gs", 538, stdin=True)
         check_case("file", ["--replay", "/logs/core.log", "--year", "2026"], "open5gs", 538,
-                   volume=f"{ROOT / 'tests/fixtures/success.log'}:/logs/core.log:ro")
+                   volume=f"{ROOT / 'examples/success.log'}:/logs/core.log:ro")
     finally:
         run(*COMPOSE, "down", "--remove-orphans", check=False)

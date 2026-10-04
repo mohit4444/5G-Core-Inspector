@@ -1,8 +1,8 @@
 """Open5GS log adapter. Keep vendor patterns outside the shared engine."""
 import re
 from datetime import datetime
-from failure_rules import match_failure
-from pdu import observe_pdu
+from .open5gs_failures import match_failure
+from ..core.pdu import observe_pdu
 
 IDS = {'ranUeNgapId': r'RAN_UE_NGAP_ID\[(\d+)\]',
        'amfUeNgapId': r'AMF_UE_NGAP_ID\[(\d+)\]', 'tac': r'TAC\[(\d+)\]',

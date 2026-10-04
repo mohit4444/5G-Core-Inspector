@@ -2,12 +2,9 @@
 **
 !Dockerfile
 !requirements-runtime.txt
-!app.py
-!engine.py
-!failure_rules.py
-!pdu.py
-!adapters/
-!adapters/*.py
+!backend/
+!backend/**/
+!backend/**/*.py
 !frontend/
 !frontend/package.json
 !frontend/package-lock.json
@@ -15,7 +12,5 @@
 !frontend/vite.config.js
 !frontend/src/
 !frontend/src/**
-!tests/
-!tests/fixtures/
-!tests/fixtures/success.log
-!tests/fixtures/oai-success.log
+!examples/
+!examples/*.log

@@ -2,8 +2,8 @@
 import copy
 import re
 import time
-from adapters import open5gs, oai
-from adapters.model import IDENTIFIER_FIELDS, DIAGNOSTIC_DEFAULTS
+from ..adapters import open5gs, oai
+from .model import IDENTIFIER_FIELDS, DIAGNOSTIC_DEFAULTS
 from datetime import datetime, timedelta
 
 ANSI = re.compile(r'\x1b\[[0-?]*[ -/]*[@-~]')

@@ -15,13 +15,12 @@ COPY requirements-runtime.txt ./
 RUN pip install --no-cache-dir -r requirements-runtime.txt \
     && groupadd --gid 10001 inspector \
     && useradd --uid 10001 --gid inspector --no-create-home inspector
-COPY app.py engine.py failure_rules.py pdu.py ./
-COPY adapters ./adapters
+COPY backend ./backend
 COPY --from=frontend /build/static ./static
-COPY tests/fixtures/success.log tests/fixtures/oai-success.log ./examples/
+COPY examples ./examples
 USER 10001:10001
 EXPOSE 8000
 HEALTHCHECK --interval=15s --timeout=3s --start-period=5s --retries=3 \
     CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2).close()"]
-ENTRYPOINT ["python", "app.py", "--host", "0.0.0.0"]
+ENTRYPOINT ["python", "-m", "backend", "--host", "0.0.0.0"]
 CMD ["--replay", "/app/examples/success.log", "--year", "2026"]

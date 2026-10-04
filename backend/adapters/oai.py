@@ -11,7 +11,7 @@ Identity-free messages require a single known UE and a single active attempt.
 import ipaddress
 import re
 from datetime import datetime
-from pdu import observe_pdu
+from ..core.pdu import observe_pdu
 
 KEY = 'oai'
 LABEL = 'OAI 5G Core'

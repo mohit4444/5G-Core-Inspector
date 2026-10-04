@@ -1,12 +1,12 @@
-"""All inputs in this module and fixtures/ are synthetic test data."""
+"""All inputs in this module and examples/ are synthetic test data."""
 from pathlib import Path
 from datetime import datetime
 import pytest
 from fastapi.testclient import TestClient
-from app import create_app
-from engine import Inspector
+from backend.app import create_app
+from backend.core.engine import Inspector
 
-FIXTURE = Path(__file__).parent / 'fixtures/success.log'
+FIXTURE = Path(__file__).resolve().parents[2] / 'examples/success.log'
 LINES = FIXTURE.read_text().splitlines()[1:]
 
 @pytest.fixture

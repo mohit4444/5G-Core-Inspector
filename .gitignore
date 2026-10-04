@@ -11,7 +11,7 @@ frontend/playwright-report/
 .env.*
 !.env.example
 *.log
-!tests/fixtures/*.log
+!examples/*.log
 .DS_Store
 
 # Local workspace instructions and session handoff

@@ -4,10 +4,10 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from app import create_app
-from engine import Inspector
+from backend.app import create_app
+from backend.core.engine import Inspector
 
-FIXTURE = Path(__file__).parent / 'fixtures/oai-success.log'
+FIXTURE = Path(__file__).resolve().parents[2] / 'examples/oai-success.log'
 REQUEST = 'Received Registration Request message, handling...'
 COMPLETE = '5GMM state transition: COMM-PROC-INIT -> 5GMM-REGISTERED (event: [REGISTRATION_COMPLETE_RECEIVED])'
 
