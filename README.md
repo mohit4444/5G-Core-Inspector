@@ -15,7 +15,7 @@ automatically, and opens a troubleshooting dashboard in your browser.
 ![5G Core Inspector dashboard with a searchable UE list and Open5GS registration statuses](.github/assets/dashboard.png)
 *Dashboard preview using synthetic example data.*
 
-[Quick start](#quick-start) · [Connect your core](#connect-your-core) · [Project structure](#project-structure)
+[Quick start](#quick-start) · [Connect your core](#connect-your-core)
 
 ## What you can do
 
@@ -159,20 +159,3 @@ If Docker needs `sudo`, add it before each `docker` command.
 Press **Ctrl+C** to stop. Run the same connection command to restart or choose
 another core. Results stay in memory and are cleared when the Inspector stops.
 If live logs disconnect, check the source and restart the Inspector.
-
-## Project structure
-
-```text
-backend/          Python server and command-line entry point
-  core/           Shared registration and PDU analysis
-  adapters/       Open5GS and OAI log parsers
-frontend/src/     React interface, components and hooks
-tests/backend/    Backend tests
-frontend/tests/   Browser tests
-examples/         Synthetic logs for demos and tests
-scripts/          Docker verification
-static/           Built interface, generated from frontend/src
-```
-
-Docker and GitHub Actions build and check the complete application. `app.py`
-remains a compatibility launcher; new source runs use `python -m backend`.
