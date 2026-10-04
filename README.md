@@ -73,6 +73,23 @@ docker logs --follow --since 0s YOUR_AMF_CONTAINER 2>&1 \
   | docker compose run --rm --service-ports -T inspector --stdin
 ```
 
+<details>
+<summary>Example used on our test system — port 8002</summary>
+
+`docker-5gc` is the image; `oai_ocudu_5gc` is the container name. AMF runs
+inside it alongside the other Open5GS services.
+
+```bash
+docker logs --follow --since 0s oai_ocudu_5gc 2>&1 \
+  | INSPECTOR_PORT=8002 docker compose -p inspector-validation-docker \
+      run --rm --service-ports -T --name inspector-validation-open5gs-docker \
+      inspector --stdin
+```
+
+Open http://127.0.0.1:8002.
+
+</details>
+
 ### Open5GS running without Docker
 
 Read new messages from the AMF log file:
@@ -84,6 +101,22 @@ sudo tail -n 0 -F /var/log/open5gs/amf.log \
 
 Change the path if your installation stores logs elsewhere. For data-session
 details, add `/var/log/open5gs/smf.log` after the AMF file path.
+
+<details>
+<summary>Example used on our test system — port 8003</summary>
+
+We read both AMF and SMF logs:
+
+```bash
+sudo tail -n 0 -F /var/log/open5gs/amf.log /var/log/open5gs/smf.log \
+  | INSPECTOR_PORT=8003 docker compose -p inspector-validation-native \
+      run --rm --service-ports -T --name inspector-validation-open5gs-native \
+      inspector --stdin
+```
+
+Open http://127.0.0.1:8003.
+
+</details>
 
 ### OAI 5G Core
 
@@ -101,8 +134,29 @@ Replace the file path and service names with yours. If you started OAI with
 Keep the service prefixes in the logs. The same command works for separate
 Open5GS AMF/SMF services with their Compose file and service names.
 
-Open **http://127.0.0.1:8000**, then connect a UE. Select it to see its timeline.
+<details>
+<summary>Example used on our test system — port 8004</summary>
+
+Our OAI project is named `inspector-oai`. Use your own Compose file path:
+
+```bash
+docker compose -p inspector-oai \
+  -f /home/mohit/.local/share/inspector/oai-lab/compose.yaml \
+  logs --follow --since 0s --no-color oai-amf oai-smf 2>&1 \
+  | INSPECTOR_PORT=8004 docker compose -p inspector-validation-oai \
+      run --rm --service-ports -T --name inspector-validation-oai-core \
+      inspector --stdin
+```
+
+Open http://127.0.0.1:8004.
+
+</details>
+
+Open **http://127.0.0.1:8000** (or the example's port), then connect a UE.
+Select it to see its timeline.
 Start the Inspector before connecting the UE; these commands read new logs only.
+The test-system examples show the pipelines used, ready to run in a terminal.
+Stop an existing Inspector using the same port/container name before rerunning one.
 
 If Docker needs `sudo`, add it before each `docker` command.
 If port 8000 is busy, create `.env` with `INSPECTOR_PORT=8002` and use
