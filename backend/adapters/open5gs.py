@@ -1,7 +1,7 @@
 """Open5GS log adapter. Keep vendor patterns outside the shared engine."""
 import re
 from datetime import datetime
-from .open5gs_failures import match_failure
+from .open5gs_failures import is_authentication_sync_failure, match_failure
 from ..core.pdu import observe_pdu
 
 IDS = {'ranUeNgapId': r'RAN_UE_NGAP_ID\[(\d+)\]',
@@ -41,6 +41,7 @@ def feed(engine, raw, line, clock=None):
         if found:
             identifiers[key] = int(found[1]) if key in ('ranUeNgapId', 'amfUeNgapId', 'tac') else found[1]
     component = module[1].lower()
+    sync_failure = is_authentication_sync_failure(component, line)
     severity_match = re.search(r'\]\s+(TRACE|DEBUG|INFO|WARNING|WARN|ERROR|FATAL):', line, re.I)
     severity = severity_match[1].upper() if severity_match else None
     if track_pdu(engine, component, line, identifiers, stamp, raw, source):
@@ -68,10 +69,10 @@ def feed(engine, raw, line, clock=None):
         failure_rule, cause = match_failure(component, line)
         # Only actual context/identity messages may enrich a registration.
         enrichment = re.search(r'RAN_UE_NGAP_ID|AMF_UE_NGAP_ID|\bSUCI\b', line)
-        if not (requested or completed or failure_rule or enrichment):
+        if not (requested or completed or failure_rule or enrichment or sync_failure):
             return
         candidates = [r for r in engine.attempts if engine.is_active(r)]
-        if not candidates and not (requested or completed or failure_rule):
+        if not candidates and not (requested or completed or failure_rule or sync_failure):
             return
         record = engine.correlate(identifiers, candidates, allow_enrichment=True)
         if record is None:
@@ -93,6 +94,8 @@ def feed(engine, raw, line, clock=None):
                       completedAt=stamp.isoformat(timespec='milliseconds'),
                       durationMs=round((stamp - datetime.fromisoformat(record['startedAt'])).total_seconds() * 1000))
         engine.event('REGISTRATION_COMPLETED', stamp, raw, source, record)
+    elif sync_failure:
+        engine.event('AUTHENTICATION_SYNC_FAILURE', stamp, raw, source, record)
     elif failure_rule:
         engine.fail(stamp, failure_rule['failure_stage'], failure_rule['reason'],
                   failure_rule['confidence'], raw, source, record,

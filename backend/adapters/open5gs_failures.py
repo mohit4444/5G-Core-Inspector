@@ -1,7 +1,7 @@
 """Declarative registration-failure rules.
 
-Patterns not documented as verified in README are deliberately conservative,
-synthetic candidates that must be checked against real deployment logs.
+Rules use explicit log evidence. Unless marked as deployment-verified, patterns
+are synthetic candidates that need checking against real deployment logs.
 """
 import re
 
@@ -68,8 +68,21 @@ FAILURE_RULES = (
 )
 
 
+def is_authentication_sync_failure(component, line):
+    """Open5GS can retry cause 21; only a later reject proves termination.
+
+    Verified with native Open5GS 2.8.0 and its gmm-sm.c authentication handler;
+    OGS_5GMM_CAUSE_SYNCH_FAILURE is 21 in lib/nas/5gs/types.h.
+    """
+    return component == 'gmm' and bool(re.search(
+        r'\bAuthentication failure\s*(?:\[21\]|\(Synch failure\[count=\d+\]\))',
+        line, re.I))
+
+
 def match_failure(component, line):
     """Return the first specific rule match and an optional protocol cause."""
+    if is_authentication_sync_failure(component, line):
+        return None, None
     for rule in FAILURE_RULES:
         if component not in rule['allowed_components']:
             continue

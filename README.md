@@ -59,8 +59,9 @@ Before connecting a live core, press **Ctrl+C** and run `docker compose down`.
 
 ## Connect your core
 
-Your core must already be running. Run one of these commands from the Inspector
-folder on the same computer. The Inspector runs in Docker in every case.
+Your core must already be running, with the UE added to its subscriber list and
+matching settings on the UE. Run one of these commands from the Inspector folder
+on the same computer. The Inspector runs in Docker in every case.
 
 ### Open5GS running in Docker
 
@@ -106,6 +107,13 @@ Start the Inspector before connecting the UE; these commands read new logs only.
 If Docker needs `sudo`, add it before each `docker` command.
 If port 8000 is busy, create `.env` with `INSPECTOR_PORT=8002` and use
 http://127.0.0.1:8002.
+
+### If something looks wrong
+
+- **No UE appears:** reconnect the UE after starting the Inspector. If it still
+  does not appear, check that the gNB connects to the core and the UE reaches it.
+- **Authentication sync failure:** the core may retry and complete registration.
+  This message stays in the timeline; it does not by itself mean registration failed.
 
 ## Stop and restart
 
